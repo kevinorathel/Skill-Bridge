@@ -1,0 +1,112 @@
+body{
+    background-color: #EDF2F4;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Navigation Bar */
+
+.navbar{
+    padding: 0 0 4.5rem; 
+}
+
+#branding{
+    font-family: "Manjari", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 4rem;
+    color: #782B2D;
+}
+
+.logo{
+    width: 8.5rem; 
+    margin-bottom: 28px;
+}
+
+.nav-item{
+    padding-left: 18px;
+    padding-right: 18px;
+    border-radius: 5 rem;
+}
+
+.nav-item:hover{
+    border-radius: 10px;
+    color: #386641;
+}
+
+.nav-link{
+    font-size: 1rem;
+    color: #4F4A45;
+}
+
+.nav-link:hover{
+    color: #386641;
+}
+
+
+/* Header Section */
+
+#header{
+    color: #4F4A45;
+    padding: 3% 15% 5%;
+    max-height: 1000px;
+}
+
+.heading{
+    margin-top: 3%;
+    font-size: 50px;
+    color: #2B2D42;
+}
+
+.subtext{
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.buttons{
+    margin-top: 30px;
+    text-align: center;
+}
+
+.btn{
+    font-size: 20px;
+    padding: 3% 5%;
+    margin-right: 30px;
+}
+
+.lady-texting{
+    border-radius: 4%;
+    margin-top: 3%;
+    max-width: 100%;
+    height: auto;
+}
+
+.intial-caption{
+    text-align: center;
+}
+
+/* Features Section */
+
+#features{
+    text-align: center;
+    margin: 5%;
+}
+
+.icons{
+    color: #2B2D42;
+    font-size: 7rem;
+    margin-bottom: 5rem;
+}
+
+/* Footer */
+
+#footer{
+    margin-top: 10%;
+    text-align: center;
+}
+
+.copyright{
+    color: #395B64;
+    font-size: medium;
+    font-weight: lighter;
+    margin-top: 1rem;
+}
