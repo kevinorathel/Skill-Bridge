@@ -49,7 +49,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div>
-            <img src="images/android-chrome-192x192.png" alt="helper-mockup" class="logo">
+            <img src="{% static 'images/android-chrome-192x192.png' %}" alt="logo" class="logo">
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -57,7 +57,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ls-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="signup.html">Sign Up</a>
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./Code/contact.html">Contact</a>
@@ -74,39 +74,92 @@
         <div class="signup-box">
             <div class="left-box">
                 <form action="" >
-                    <label for="profile-photo" class="profile-photo-text-label">Profile Photo:</label>
+                    <div class="profile-photo-label-container">
+                        <label for="profile-photo" class="profile-photo-text-label">Profile Photo:</label>
+                    </div>
                     <div class="profile-photo-preview">
-                        <img src="./images/generic-pfp.jfif">
+                        <img src="{% static 'images/generic-pfp.jpg' %}"  alt="Profile Picture">
                     </div>
                     <input type="file" accept="image/*" onchange="showPreview(event)" class="profile-photo-input">
                     <label for="profile-photo" class="profile-photo-label">Select a Photo</label>
+
+                    <label for="firstname" >First Name:</label>
                     <input type="text" placeholder="First Name" class="input-box" required>
+
+                    <br>
+
+                    <label for="lastname" class="form-label">Last Name:</label>
                     <input type="text" placeholder="Last Name" class="input-box" required>
-                    <input type="number" placeholder="Enter your Contact Number" class="input-box" required>
-                    <input type="email" placeholder="Enter your Email-ID" class="input-box" required>
-                    <input type="password" placeholder="Enter your Password" class="input-box" required>
-                    <input type="password" placeholder="Re-enter your Password" class="input-box" required>
+
+                    <br>
+
+                    <label for="lastname" class="form-label">Phone Number:</label>
+                    <input type="number" placeholder="Phone Number" class="input-box" required>
+
+                    <br>
+
+                    <label for="email" class="form-label">Email-ID:</label>
+                    <input type="email" placeholder="Email-ID" class="input-box" required>
+
+                    <br>
+
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" placeholder="Password" class="input-box" required>
+
+                    <br>
+
+                    <label for="password" class="form-label">Re-enter your Password:</label>
+                    <input type="password" placeholder="Password" class="input-box" required>
+
+                    <br>
+
+                    <br>
+
+                    <label for="address" class="form-label">Address:</label>
+                    <input type="text" placeholder="Address" class="input-box" required>
+
+                    <br>
+
+                    <br>
+
+                    <label for="zipcode" class="form-label">Zipcode:</label>
+                    <input type="number" placeholder="Zipcode" class="input-box" required>
+
+                    <br>
+
+                    <br>
+
+                    <label for="terms" class="form-label">Type of user </label>
+                    <input type="checkbox" class="option-checkbox">
+                    <label for="terms" class="option-label"> Individual </label>
+
+                    <input type="checkbox" class="option-checkbox">
+                    <label for="terms" class="option-label"> Company </label>
+
+                    <br>
+
                     <input type="checkbox" class="input-checkbox">
                     <label for="terms" class="checkbox-label"> I accept the terms & conditions. </label>
-                    <button type="submit"> SIGN UP </button>
-                    <button href="{% url 'index' %}">Cancel</button>
+
+                    <br>
+
+                    <div class="buttons">
+                        <button type="submit" class="btn btn-success" type="submit">Sign Up!</button>
+                        <button class="btn btn-dark" href="{% url 'index' %}">Cancel</button>
+                    </div>
+
                 </form>
             </div>
-            <div class="right-box">
-                <a href="" class="g-link"><i class="fa-brands fa-google"></i> Connect with Google </a>
-                <a href="" class="x-link"><i class="fa-brands fa-x-twitter"></i> Connect with X </a>
-                <a href="" class="fb-link"><i class="fa-brands fa-facebook-f"></i> Connect with Facebook </a>
-            </div>
         </div>
-        <p class="login-msg"> Already have an account? <a href="#"> Login Now </a></p>
+        <p class="login-msg"> Already have an account? <a href="{% url 'login' %}"> Login Now </a></p>
     </div>
 
     <div class="footer">
 
         <!-- Footer -->
-        <footer class="text-center text-lg-start text-white" style="background-color: #45474B">
+        <footer class="text-center text-lg-start text-white" style="background-color: #2B2D42">
             <!-- Section: Social media -->
-            <section class="d-flex justify-content-between p-4" style="background-color: #2C3333">
+            <section class="d-flex justify-content-between p-4" style="background-color: #8D99AE">
                 <div class="me-5">
                     <span>Get connected with us via social media:</span>
                 </div>
@@ -141,7 +194,7 @@
                         <!-- Grid column -->
                         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                             <!-- Content -->
-                            <h6 class="text-uppercase fw-bold">Kooli</h6>
+                            <h6 class="text-uppercase fw-bold">SkillBridge</h6>
                             <hr class="mb-4 mt-0 d-inline-block mx-auto"
                                 style="width: 60px; background-color: #395B64; height: 2px" />
                             <p>
@@ -198,8 +251,8 @@
                             <h6 class="text-uppercase fw-bold">Contact</h6>
                             <hr class="mb-4 mt-0 d-inline-block mx-auto"
                                 style="width: 60px; background-color: #395B64; height: 2px" />
-                            <p><i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
-                            <p><i class="fas fa-envelope mr-3"></i> info@example.com</p>
+                            <p><i class="fas fa-home mr-3"></i> Worcester, MA 01601, US</p>
+                            <p><i class="fas fa-envelope mr-3"></i> help@skillbridge.com</p>
                             <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
                             <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
                         </div>
