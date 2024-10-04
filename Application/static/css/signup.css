@@ -197,6 +197,11 @@ tr {
   background-color: #000000;
 }
 
+.fillout-form{
+  margin-left: 10 ;
+
+}
+
 .profile-photo-label-container {
     display: flex;
     justify-content: center; /* Center horizontally */
