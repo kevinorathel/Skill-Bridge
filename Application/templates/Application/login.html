@@ -76,7 +76,8 @@
                 <p class="welcome-back">Welcome Back!</p>
                 <p class="message">Enter your credentials below</p>
 
-                <form id="login">
+                <form id="login" method="POST"> <!-- Specify POST method -->
+                    {% csrf_token %} <!-- CSRF token for security -->
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameHelp" required>
@@ -89,7 +90,7 @@
 
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="check">Remember Me</label>
+                        <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                     </div>
 
                     <div class="buttons">

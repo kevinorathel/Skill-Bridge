@@ -28,20 +28,22 @@
     <title>Signup | SkillBridge</title>
     
     <script>
-        // JavaScript to display the selected profile photo preview
         function showPreview(event) {
-            var input = event.target;
-            var reader = new FileReader();
-            reader.onload = function () {
-                var preview = document.getElementById('profile-photo-preview');
-                preview.style.display = 'block';
-                if (input.files.length > 0) {
-                    preview.innerHTML = '<img src="' + reader.result + '">';
-                } else {
-                    preview.innerHTML = '<img src="./images/generic-pfp.jfif">';
-                }
+            const input = event.target;
+            const file = input.files[0]; // Get the selected file
+
+            if (file) {
+                const reader = new FileReader();
+
+                // When the file is successfully read, update the profile image's src attribute
+                reader.onload = function (e) {
+                    const profileImage = document.getElementById('profileImage');
+                    profileImage.src = e.target.result; // Set the src to the base64 string of the image
+                };
+
+                // Read the selected file as a data URL (base64 encoded string)
+                reader.readAsDataURL(file);
             }
-            reader.readAsDataURL(input.files[0]);
         }
     </script>
 </head>
@@ -77,75 +79,80 @@
                     <div class="profile-photo-label-container">
                         <label for="profile-photo" class="profile-photo-text-label">Profile Photo:</label>
                     </div>
+
                     <div class="profile-photo-preview">
-                        <img src="{% static 'images/generic-pfp.jpg' %}"  alt="Profile Picture">
+                        <img id="profileImage" src="{% static 'images/generic-pfp.jpg' %}" alt="Profile Photo">
                     </div>
-                    <input type="file" accept="image/*" onchange="showPreview(event)" class="profile-photo-input">
-                    <label for="profile-photo" class="profile-photo-label">Select a Photo</label>
 
-                    <label for="firstname" >First Name:</label>
-                    <input type="text" placeholder="First Name" class="input-box" required>
+                    <input type="file" id="fileInput" accept="image/*" onchange="showPreview(event)" style="display: none;">
+                    <label for="fileInput" class="profile-photo-label">Select a Photo</label>
 
-                    <br>
+                    <div class="fillout-form">
 
-                    <label for="lastname" class="form-label">Last Name:</label>
-                    <input type="text" placeholder="Last Name" class="input-box" required>
+                        <label for="firstname" >First Name:</label>
+                        <input type="text" placeholder="First Name" class="input-box" required>
 
-                    <br>
+                        <br>
 
-                    <label for="lastname" class="form-label">Phone Number:</label>
-                    <input type="number" placeholder="Phone Number" class="input-box" required>
+                        <label for="lastname" class="form-label">Last Name:</label>
+                        <input type="text" placeholder="Last Name" class="input-box" required>
 
-                    <br>
+                        <br>
 
-                    <label for="email" class="form-label">Email-ID:</label>
-                    <input type="email" placeholder="Email-ID" class="input-box" required>
+                        <label for="lastname" class="form-label">Phone Number:</label>
+                        <input type="number" placeholder="Phone Number" class="input-box" required>
 
-                    <br>
+                        <br>
 
-                    <label for="password" class="form-label">Password:</label>
-                    <input type="password" placeholder="Password" class="input-box" required>
+                        <label for="email" class="form-label">Email-ID:</label>
+                        <input type="email" placeholder="Email-ID" class="input-box" required>
 
-                    <br>
+                        <br>
 
-                    <label for="password" class="form-label">Re-enter your Password:</label>
-                    <input type="password" placeholder="Password" class="input-box" required>
+                        <label for="password" class="form-label">Password:</label>
+                        <input type="password" placeholder="Password" class="input-box" required>
 
-                    <br>
+                        <br>
 
-                    <br>
+                        <label for="password" class="form-label">Re-enter your Password:</label>
+                        <input type="password" placeholder="Password" class="input-box" required>
 
-                    <label for="address" class="form-label">Address:</label>
-                    <input type="text" placeholder="Address" class="input-box" required>
+                        <br>
 
-                    <br>
+                        <br>
 
-                    <br>
+                        <label for="address" class="form-label">Address:</label>
+                        <input type="text" placeholder="Address" class="input-box" required>
 
-                    <label for="zipcode" class="form-label">Zipcode:</label>
-                    <input type="number" placeholder="Zipcode" class="input-box" required>
+                        <br>
 
-                    <br>
+                        <br>
 
-                    <br>
+                        <label for="zipcode" class="form-label">Zipcode:</label>
+                        <input type="number" placeholder="Zipcode" class="input-box" required>
 
-                    <label for="terms" class="form-label">Type of user </label>
-                    <input type="checkbox" class="option-checkbox">
-                    <label for="terms" class="option-label"> Individual </label>
+                        <br>
 
-                    <input type="checkbox" class="option-checkbox">
-                    <label for="terms" class="option-label"> Company </label>
+                        <br>
 
-                    <br>
+                        <label for="terms" class="form-label">Type of user </label>
+                        <input type="checkbox" class="option-checkbox">
+                        <label for="terms" class="option-label"> Individual </label>
 
-                    <input type="checkbox" class="input-checkbox">
-                    <label for="terms" class="checkbox-label"> I accept the terms & conditions. </label>
+                        <input type="checkbox" class="option-checkbox">
+                        <label for="terms" class="option-label"> Company </label>
 
-                    <br>
+                        <br>
 
-                    <div class="buttons">
-                        <button type="submit" class="btn btn-success" type="submit">Sign Up!</button>
-                        <button class="btn btn-dark" href="{% url 'index' %}">Cancel</button>
+                        <input type="checkbox" class="input-checkbox">
+                        <label for="terms" class="checkbox-label"> I accept the terms & conditions. </label>
+
+                        <br>
+
+                        <div class="buttons">
+                            <button type="submit" class="btn btn-success" type="submit">Sign Up!</button>
+                            <button class="btn btn-dark" href="{% url 'index' %}">Cancel</button>
+                        </div>
                     </div>
 
                 </form>
