@@ -1,244 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    {% load static %}
+{% load static %}
 
-    <head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
-        <!-- Bootstrap -->
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/cdcd19df26.js" crossorigin="anonymous"></script>
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-         
-        <!-- Font Awesome -->
- 
-        <script src="https://kit.fontawesome.com/cdcd19df26.js" crossorigin="anonymous"></script>
- 
-        <!-- Personal Style Sheet -->
- 
-        <link rel="stylesheet" href="{% static 'css/index.css' %}">
-        <link rel="icon" href="{% static 'images/SkillBridge.ico' %}">
+    <!-- Personal Style Sheet -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="icon" href="{% static 'images/SkillBridge.ico' %}">
 
-        <!-- Google Fonts -->
-        
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Manjari:wght@100;400;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manjari:wght@100;400;700&display=swap" rel="stylesheet">
 
+    <title>Skill Bridge</title>
+</head>
 
-        <title>Skill Bridge</title>
-
-    </head>
-
-    <body>
-
-        <section id="header">
-
-            
-        
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-lg navbar-dark">
-
-                    
-
-                    <div>
-                        <img class="logo" src="{% static 'images/android-chrome-192x192.png' %}" alt="logo">
-                    </div>
-                    
-
-
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ms-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+<body>
+    <section id="header">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div>
+                    <img class="logo" src="{% static 'images/android-chrome-192x192.png' %}" alt="logo">
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="signupDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Sign Up
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="signupDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'custsignup' %}">Customer Sign Up</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/contact.html">Contact</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/download.html">Download</a>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'workersignup' %}">Worker Sign Up</a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/download.html">Download</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 initial-caption">
+                <p class="heading">Find the best person for the job, anytime, anywhere.</p>
+                <p class="subtext">
+                    Browse through various skilled professionals that can help you with daily tasks or become a part of our workforce and start
+                    getting jobs that line up with your skill set.
+                </p>
+                <div class="buttons">
+                    <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#signupModal">
+                        Get Started
+                    </button>
+                    <a type="button" class="btn btn-dark btn-lg" href="{% url 'login' %}" id="ind-login-btn">Login</a>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <img src="{% static 'images/workers-11.jpg' %}" alt="texting-mockup" class="lady-texting img-fluid">
+            </div>
+        </div>
+    </section>
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signupModalLabel">Choose Your Sign Up Option</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row text-center">
+                        <div class="col-md-6">
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Customer Sign Up</h5>
+                                    <p class="card-text">Join us to find the best talent for your tasks. Get started today and browse skilled professionals.</p>
+                                    <a class="btn btn-primary" href="{% url 'custsignup' %}">Continue as Customer</a>
+                                </div>
+                            </div>
                         </div>
-                </nav>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col-lg-6 initial-caption">
-                    
-                    <p class="heading">Find the best person for the job, anytime, anywhere.</p>
-                    <p class="subtext">
-                        Browse through various skilled professionals that can help you with daily tasks or become a part of our work force and start
-                        getting jobs that line up with your skill set
-                    </p>
-                    <div class="buttons">
-                        <a type="button" class="btn btn-success btn-lg" href="{% url 'signup' %}" id="ind-login-btn">Get Started</a>
-                        <a type="button" class="btn btn-dark btn-lg" href="{% url 'login' %}" id="ind-login-btn">Login</a>
+                        <div class="col-md-6">
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Worker Sign Up</h5>
+                                    <p class="card-text">Become part of our workforce and start getting jobs that match your skills. Join us now!</p>
+                                    <a class="btn btn-secondary" href="{% url 'workersignup' %}">Continue as Worker</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                </div> 
-
-                <div class="col-lg-6">
-                    <img src="{% static 'images/workers-11.jpg' %}" alt="texting-mockup" class="lady-texting img-fluid">
                 </div>
-                
-            </div> 
-
-        </section>
-
-
-        <!-- Features -->
-    
-        <section id="features">
-
-            <div class="container-fluid">
-        
-                <div class="row">
-                    <div class="feature-box col-lg-4 col-md-12 col-sm-12">
-                        <i class="fa-sharp fa-solid fa-circle-check icons"></i>
-                        <h3>Hire a trusted worker</h3>
-                        <p>Pick a worker based on curated reviews</p>
-                    </div>
-                
-                    <div class="feature-box col-lg-4 col-md-12 col-sm-12">
-                        <i class="fa-sharp fa-solid fa-plane-departure icons"></i>
-                        <h3>Work abroad</h3>
-                        <p>Selected highly rated workers can migrate to foriegn countries</p>
-                    </div>
-
-                    <div class="feature-box col-lg-4 col-md-12 col-sm-12">
-                        <i class="fa-sharp fa-solid fa-circle-user icons"></i>
-                        <h3>Employment Opportunities</h3>
-                        <p>Create a profile and get contract jobs</p>
-                    </div>
-                
-                    
-                </div>
-        
             </div>
-
-        </section>
-
+        </div>
     </div>
-        
-        <div class="footer">
 
-            <!-- Footer -->
-            <footer class="text-center text-lg-start text-white" style="background-color: #2B2D42">
-                <!-- Section: Social media -->
-                <section class="d-flex justify-content-between p-4" style="background-color: #8D99AE">
-                    <div class="me-5">
-                        <span>Get connected with us via social media:</span>
-                    </div>
-                    <div>
-                        <a href="" class="text-white me-4">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="" class="text-white me-4">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="" class="text-white me-4">
-                            <i class="fab fa-google"></i>
-                        </a>
-                        <a href="" class="text-white me-4">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="" class="text-white me-4">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="" class="text-white me-4">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </section>
-                <!-- Section: Social media -->
-    
-                <!-- Section: Links  -->
-                <section class="">
-                    <div class="container text-center text-md-start mt-5">
-                        <!-- Grid row -->
-                        <div class="row mt-3">
-                            <!-- Grid column -->
-                            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                                <!-- Content -->
-                                <h6 class="text-uppercase fw-bold">Skill Bridge</h6>
-                                <hr class="mb-4 mt-0 d-inline-block mx-auto"
-                                    style="width: 60px; background-color: #395B64; height: 2px" />
-                                <p>
-                                    Get going
-                                </p>
-                            </div>
-                            <!-- Grid column -->
-    
-                            <!-- Grid column -->
-                            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                                <!-- Links -->
-                                <h6 class="text-uppercase fw-bold">Products</h6>
-                                <hr class="mb-4 mt-0 d-inline-block mx-auto"
-                                    style="width: 60px; background-color: #395B64; height: 2px" />
-                                <p>
-                                    <a href="#!" class="text-white">MDBootstrap</a>
-                                </p>
-                                <p>
-                                    <a href="#!" class="text-white">MDWordPress</a>
-                                </p>
-                                <p>
-                                    <a href="#!" class="text-white">BrandFlow</a>
-                                </p>
-                                <p>
-                                    <a href="#!" class="text-white">Bootstrap Angular</a>
-                                </p>
-                            </div>
-                            <!-- Grid column -->
-    
-                            <!-- Grid column -->
-                            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                                <!-- Links -->
-                                <h6 class="text-uppercase fw-bold">Useful links</h6>
-                                <hr class="mb-4 mt-0 d-inline-block mx-auto"
-                                    style="width: 60px; background-color: #395B64; height: 2px" />
-                                <p>
-                                    <a href="#!" class="text-white">Your Account</a>
-                                </p>
-                                <p>
-                                    <a href="#!" class="text-white">Become an Affiliate</a>
-                                </p>
-                                <p>
-                                    <a href="#!" class="text-white">Shipping Rates</a>
-                                </p>
-                                <p>
-                                    <a href="#!" class="text-white">Help</a>
-                                </p>
-                            </div>
-                            
-                            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                                <h6 class="text-uppercase fw-bold">Contact</h6>
-                                <hr class="mb-4 mt-0 d-inline-block mx-auto"
-                                    style="width: 60px; background-color: #395B64; height: 2px" />
-                                <p><i class="fas fa-home mr-3"></i> Worcester, MA 01601, US</p>
-                                <p><i class="fas fa-envelope mr-3"></i> help@skillbridge.com</p>
-                                <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-                                <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
-                            </div>
+    <!-- Features -->
+    <section id="features">
+        <div class="container-fluid">
+            <h2 class="text-center mb-5">Our Features</h2>
+            <div class="row">
+                <div class="feature-box col-lg-4 col-md-12 col-sm-12">
+                    <i class="fa-sharp fa-solid fa-circle-check icons"></i>
+                    <h3>Hire a Trusted Worker</h3>
+                    <p>Pick a worker based on curated reviews.</p>
+                </div>
+                <div class="feature-box col-lg-4 col-md-12 col-sm-12">
+                    <i class="fa-sharp fa-solid fa-plane-departure icons"></i>
+                    <h3>Work Abroad</h3>
+                    <p>Selected highly rated workers can migrate to foreign countries.</p>
+                </div>
+                <div class="feature-box col-lg-4 col-md-12 col-sm-12">
+                    <i class="fa-sharp fa-solid fa-circle-user icons"></i>
+                    <h3>Employment Opportunities</h3>
+                    <p>Create a profile and get contract jobs.</p>
+                </div>
+                <div class="feature-box col-lg-4 col-md-12 col-sm-12">
+                    <i class="fa-solid fa-briefcase icons"></i>
+                    <h3>Flexible Job Options</h3>
+                    <p>Choose jobs based on your availability and preferences.</p>
+                </div>
+                <div class="feature-box col-lg-4 col-md-12 col-sm-12">
+                    <i class="fa-solid fa-comments icons"></i>
+                    <h3>Instant Messaging</h3>
+                    <p>Communicate directly with potential employers or clients.</p>
+                </div>
+                <div class="feature-box col-lg-4 col-md-12 col-sm-12">
+                    <i class="fa-solid fa-shield-alt icons"></i>
+                    <h3>Secure Payments</h3>
+                    <p>Enjoy peace of mind with our secure payment system.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer">
+        <!-- Footer -->
+        <footer class="text-center text-lg-start text-white" style="background-color: #2B2D42">
+            <!-- Section: Social media -->
+            <section class="d-flex justify-content-between p-4" style="background-color: #8D99AE">
+                <div class="me-5">
+                    <span>Get connected with us via social media:</span>
+                </div>
+                <div>
+                    <a href="" class="text-white me-4">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="" class="text-white me-4">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="" class="text-white me-4">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a href="" class="text-white me-4">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="" class="text-white me-4">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="" class="text-white me-4">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Section: Links -->
+            <section>
+                <div class="container text-center text-md-start mt-5">
+                    <div class="row mt-3">
+                        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                            <h6 class="text-uppercase fw-bold">Skill Bridge</h6>
+                            <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #395B64; height: 2px" />
+                            <p>Get going</p>
+                        </div>
+                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <h6 class="text-uppercase fw-bold">Products</h6>
+                            <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #395B64; height: 2px" />
+                            <p><a href="#!" class="text-white">MDBootstrap</a></p>
+                            <p><a href="#!" class="text-white">MDWordPress</a></p>
+                            <p><a href="#!" class="text-white">BrandFlow</a></p>
+                            <p><a href="#!" class="text-white">Bootstrap Angular</a></p>
+                        </div>
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <h6 class="text-uppercase fw-bold">Useful links</h6>
+                            <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #395B64; height: 2px" />
+                            <p><a href="#!" class="text-white">Your Account</a></p>
+                            <p><a href="#!" class="text-white">Become an Affiliate</a></p>
+                            <p><a href="#!" class="text-white">Shipping Rates</a></p>
+                            <p><a href="#!" class="text-white">Help</a></p>
+                        </div>
+                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                            <h6 class="text-uppercase fw-bold">Contact</h6>
+                            <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #395B64; height: 2px" />
+                            <p><i class="fas fa-home mr-3"></i> Worcester, MA 01601, US</p>
+                            <p><i class="fas fa-envelope mr-3"></i> help@skillbridge.com</p>
+                            <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                            <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
                         </div>
                     </div>
-                </section>
-                <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-                    © Copyright 2024 Skill Bridge
                 </div>
-            </footer>
-
-    </body>
-
+            </section>
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+                © Copyright 2024 Skill Bridge
+            </div>
+        </footer>
+    </div>
+</body>
 </html>

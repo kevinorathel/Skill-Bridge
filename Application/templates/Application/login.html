@@ -29,7 +29,7 @@
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="809368412322-p9b805jmjblm95l3l3kjpiul3iaroh2v.apps.googleusercontent.com">
-    
+
 
 </head>
 <body>
@@ -40,7 +40,7 @@
             <div class="col text-section">
                 <nav class="navbar navbar-expand-lg navbar-dark">
                     <div>
-                        
+
                         <a href="index.html"></a>
                         <img src="{% static 'images/android-chrome-192x192.png' %}" alt="logo" class="logo">
 
@@ -50,9 +50,19 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
-                            </li>
+                            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="signupDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sign Up
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="signupDropdown">
+                <li>
+                    <a class="dropdown-item" href="{% url 'custsignup' %}">Customer Sign Up</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{% url 'workersignup' %}">Worker Sign Up</a>
+                </li>
+                </ul>
+        </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/contact.html">Contact</a>
                             </li>

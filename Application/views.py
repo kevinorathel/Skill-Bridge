@@ -9,5 +9,8 @@ def index(request):
 def login(request):
     return render(request, 'Application/login.html')
 
-def signup(request):
-    return render(request, 'Application/signup.html')
+def custsignup(request):
+    return render(request, 'Application/custsignup.html')
+
+def workersignup(request):
+    return render(request, 'Application/workersignup.html')
