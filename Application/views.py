@@ -6,6 +6,13 @@ from .models import User
 
 def index(request):
     return render(request, 'Application/index.html')
+
+def custsignup(request):
+    return render(request, 'Application/custsignup.html')
+
+def workersignup(request):
+    return render(request, 'Application/workersignup.html')
+
 def signup(request):
     return render(request, 'Application/signup.html')
 

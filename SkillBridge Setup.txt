@@ -1,0 +1,12 @@
+pip install mysqlclient
+pip install Pillow
+pip install djangorestframework
+
+
+*Change user and password of db in settings.py*
+
+Mariadb 
+user:root
+pwd:none
+
+https://stackoverflow.com/questions/74233986/how-to-solve-django-db-utils-notsupportederror-in-django
