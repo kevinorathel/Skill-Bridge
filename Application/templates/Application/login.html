@@ -93,6 +93,17 @@
                         <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                     </div>
 
+                    <a href="#" onclick="document.getElementById('forgotPasswordModal').style.display='block'">Forgot Password?</a>
+
+<!--                    <div id="forgotPasswordModal" style="display:none;">-->
+<!--                        <form method="post" action="{% url 'forgot_password' %}">-->
+<!--                            {% csrf_token %}-->
+<!--                            <label for="email">Enter your email:</label>-->
+<!--                            <input type="email" name="email" required>-->
+<!--                            <button type="submit">Submit</button>-->
+<!--                        </form>-->
+<!--                    </div>-->
+
                     <div class="buttons">
                         <button type="submit" class="btn btn-success">Login</button>
                         <a class="btn btn-dark" href="{% url 'index' %}">Cancel</a>
