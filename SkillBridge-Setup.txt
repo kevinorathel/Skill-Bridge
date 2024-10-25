@@ -7,6 +7,6 @@ pip install djangorestframework
 
 Mariadb 
 user:root
-pwd:none
+pwd:
 
 https://stackoverflow.com/questions/74233986/how-to-solve-django-db-utils-notsupportederror-in-django
