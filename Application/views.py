@@ -64,7 +64,7 @@ def forgot_password(request):
             # )
             messages.success(request, 'Reset link sent!')
         else:
-            messages.error(request, 'Email not found')
+            messages.error(request, 'User not found')
         return redirect('login')  # Redirect back to the login page
 
 @login_required
