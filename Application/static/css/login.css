@@ -105,15 +105,54 @@ form{
     padding: 5px;
 }
 
-.buttons{
-    margin-top: 40px;
+.buttons {
+    margin-top: 20px; /* Reduce margin */
     text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
-.btn{
+.btn {
     font-size: 20px;
-    padding: 3% 5%;
-    margin-right: 30px;
+    padding: 10px 20px; /* Adjust padding for consistency */
+    margin: 0; /* Remove extra margin */
 }
+
+/* Modal Content */
+.modal-content {
+    padding: 10px; /* Reduce overall padding */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Header and Body Adjustments */
+.modal-header, .modal-body {
+    padding: 10px 15px; /* Compact padding for header and body */
+}
+
+/* Title and Close Button Spacing */
+.modal-title {
+    margin: 0; /* Remove extra margin */
+    font-size: 18px; /* Optional: adjust title font size */
+}
+
+.btn-close {
+    margin: 0; /* Ensures close button is aligned */
+}
+
+/* Submit Button in Modal */
+.modal-body .btn {
+    padding: 8px 16px; /* Smaller button padding for compact look */
+    font-size: 16px; /* Optional: adjust font size */
+}
+
+/* Form Input Adjustments */
+.modal-body .form-control {
+    padding: 6px 10px; /* Smaller padding in input fields */
+    font-size: 14px; /* Optional: smaller font size in inputs */
+}
+
+
 
 

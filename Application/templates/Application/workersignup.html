@@ -83,7 +83,7 @@
     </nav>
 
     <div class="content-body">
-        <h1> Create a Worker Account </h1>
+        <h1> Create a Specialist Account </h1>
         <div class="signup-box">
             <div class="left-box">
                 <form onsubmit="handleFormSubmission(event)">
@@ -98,48 +98,63 @@
                     <label for="profile-photo" class="profile-photo-label">Select a Photo</label>
 
                     <!-- Form Fields -->
+                    <label for="username">Username:</label>
+                    <input type="text" placeholder="Username" class="input-box" required>
+                    {% if form.username.errors %}<div class="error">{{ form.username.errors.0 }}</div>{% endif %}
+
+                    <br>
+
                     <label for="firstname">First Name:</label>
                     <input type="text" placeholder="First Name" class="input-box" required>
+                    {% if form.first_name.errors %}<div class="error">{{ form.first_name.errors.0 }}</div>{% endif %}
 
                     <br>
 
                     <label for="lastname">Last Name:</label>
                     <input type="text" placeholder="Last Name" class="input-box" required>
+                    {% if form.last_name.errors %}<div class="error">{{ form.last_name.errors.0 }}</div>{% endif %}
 
                     <br>
 
                     <label for="phone">Phone Number:</label>
                     <input type="number" placeholder="Phone Number" class="input-box" required>
+                    {% if form.phone_number.errors %}<div class="error">{{ form.phone_number.errors.0 }}</div>{% endif %}
 
                     <br>
 
                     <label for="email">Email-ID:</label>
                     <input type="email" placeholder="Email-ID" class="input-box" required>
+                    {% if form.email.errors %}<div class="error">{{ form.email.errors.0 }}</div>{% endif %}
 
                     <br>
 
                     <label for="password">Password:</label>
                     <input type="password" placeholder="Password" class="input-box" required>
+                    {% if form.password.errors %}<div class="error">{{ form.password.errors.0 }}</div>{% endif %}
 
                     <br>
 
                     <label for="confirm-password">Re-enter your Password:</label>
                     <input type="password" placeholder="Password" class="input-box" required>
+                    {% if form.confirm_password.errors %}<div class="error">{{ form.confirm_password.errors.0 }}</div>{% endif %}
 
                     <br>
 
                     <label for="address">Address:</label>
                     <input type="text" placeholder="Address" class="input-box" required>
+                    {% if form.address.errors %}<div class="error">{{ form.address.errors.0 }}</div>{% endif %}
 
                     <br>
 
                     <label for="zipcode">Zipcode:</label>
                     <input type="number" placeholder="Zipcode" class="input-box" required>
+                    {% if form.zipcode.errors %}<div class="error">{{ form.zipcode.errors.0 }}</div>{% endif %}
 
                     <br>
 
                     <label for="dob">Date of Birth:</label>
                     <input type="date" class="input-box" required>
+                    {% if form.dob.errors %}<div class="error">{{ form.dob.errors.0 }}</div>{% endif %}
 
                     <br>
 
@@ -165,11 +180,13 @@
 
                     <label for="languages">Languages Spoken:</label>
                     <input type="text" placeholder="Languages (comma-separated)" class="input-box" required>
+                    {% if form.languages.errors %}<div class="error">{{ form.languages.errors.0 }}</div>{% endif %}
 
                     <br>
 
                     <label for="linkedin">LinkedIn Profile:</label>
                     <input type="url" placeholder="LinkedIn Profile URL" class="input-box">
+                    {% if form.languages.errors %}<div class="error">{{ form.languages.errors.0 }}</div>{% endif %}
 
                     <br>
 

@@ -56,13 +56,13 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="signupDropdown">
                 <li>
-                    <a class="dropdown-item" href="{% url 'custsignup' %}">Customer Sign Up</a>
+                    <a class="dropdown-item" href="{% url 'custsignup' %}">Client Sign Up</a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{% url 'workersignup' %}">Worker Sign Up</a>
+                    <a class="dropdown-item" href="{% url 'workersignup' %}">Specialist Sign Up</a>
                 </li>
                 </ul>
-        </li>
+            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/contact.html">Contact</a>
                             </li>
@@ -93,16 +93,9 @@
                         <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                     </div>
 
-                    <a href="#" onclick="document.getElementById('forgotPasswordModal').style.display='block'">Forgot Password?</a>
+                   <a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</a>
 
-<!--                    <div id="forgotPasswordModal" style="display:none;">-->
-<!--                        <form method="post" action="{% url 'forgot_password' %}">-->
-<!--                            {% csrf_token %}-->
-<!--                            <label for="email">Enter your email:</label>-->
-<!--                            <input type="email" name="email" required>-->
-<!--                            <button type="submit">Submit</button>-->
-<!--                        </form>-->
-<!--                    </div>-->
+
 
                     <div class="buttons">
                         <button type="submit" class="btn btn-success">Login</button>
@@ -112,14 +105,76 @@
 
             </div>
 
-
-
-
             <div class="col image-section">
                 <img src="{% static 'images/workers-10.jpg' %}" alt="helper-mockup" class="helper-image">
             </div>
 
+            <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="{% url 'forgot_password' %}">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Enter your email address:</label>
+                                    <input type="email" name="email" class="form-control" required>
+                                </div>
+                                <!-- Centered Submit Button -->
+                                <div class="submit-button-container">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        <script>
+           function openForgotPasswordPopup() {
+               document.getElementById('forgotPasswordModal').style.display = 'block';
+           }
+
+           function closeForgotPasswordPopup() {
+               document.getElementById('forgotPasswordModal').style.display = 'none';
+            }
+        </script>
+
     </div>
+
+    <!-- Message Modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalLabel">Notification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Show modal automatically if there are messages -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            {% if messages %}
+                var messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
+                messageModal.show();
+            {% endif %}
+        });
+    </script>
 
 </body>
 </html>
