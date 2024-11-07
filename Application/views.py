@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect
 from .forms import CustomerSignUp
+from .forms import SpecialistSignUp
 from django.contrib import messages
 from django.contrib.auth import login
 
@@ -16,10 +17,18 @@ def custsignup(request):
     if request.method == 'POST':
         form = CustomerSignUp(request.POST)
         if form.is_valid():
-            user = form.save()
+            # print("Form is valid")
+            # print(form.cleaned_data)
+            user = form.save(commit=False)
+
+            if 'profile_picture' in request.FILES:
+                user.profile_picture = request.FILES['profile_picture']
+
+            user.save()
             login(request)
             return redirect('login')
         else:
+            # print("Form is invalid")
             messages.error(request, 'Please correct the errors below.')
     else:
         form = CustomerSignUp()
@@ -27,7 +36,18 @@ def custsignup(request):
     return render(request, 'Application/custsignup.html', {'form': form})
 
 def workersignup(request):
-    return render(request, 'Application/workersignup.html')
+    if request.method == 'POST':
+        form = SpecialistSignUp(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+        else:
+            form = SpecialistSignUp()
+    else:
+        form = SpecialistSignUp()
+    return render(request, 'Application/workersignup.html', {'form': form})
+
 def landingpage(request):
     return render(request, 'Application/landing-page.html')
 def signup(request):
