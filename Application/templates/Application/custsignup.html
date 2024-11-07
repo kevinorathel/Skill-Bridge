@@ -75,7 +75,7 @@
         <h1> Create a Client Account </h1>
         <div class="signup-box">
             <div class="left-box">
-                <form action="{% url 'custsignup' %}" method="post">
+                <form action="{% url 'custsignup' %}" method="post" enctype="multipart/form-data">
 
                     {% csrf_token %}
 
@@ -87,7 +87,7 @@
                         <img id="profileImage" src="{% static 'images/generic-pfp.jpg' %}" alt="Profile Photo">
                     </div>
 
-                    <input type="file" id="fileInput" accept="image/*" onchange="showPreview(event)" style="display: none;">
+                    <input type="file" id="fileInput" name="profile_picture" accept="image/*" onchange="showPreview(event)" style="display: none;">
                     <label for="fileInput" class="profile-photo-label">Select a Photo</label>
 
                     <div class="fillout-form">

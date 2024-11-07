@@ -16,7 +16,7 @@ class CustomerSignUp(forms.Form):
     confirm_password = forms.CharField(widget=forms.PasswordInput, required=True)
     address = forms.CharField(max_length=45, required=True)
     zipcode = forms.CharField(max_length=15, required=True)
-
+    profile_picture = forms.ImageField(required=False)
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
@@ -27,21 +27,26 @@ class CustomerSignUp(forms.Form):
 
         return cleaned_data
 
-    def save(self):
+    def save(self, commit=True):
         user = User(
-            username=self.cleaned_data['username'],  # Use the correct username
+            username=self.cleaned_data['username'],
             email=self.cleaned_data['email'],
             first_name=self.cleaned_data['first_name'],
             last_name=self.cleaned_data['last_name'],
             password=self.cleaned_data['password'],
-            phone_no=self.cleaned_data['phone_number'],  # Ensure this matches your model
+            phone_no=self.cleaned_data['phone_number'],
             address=self.cleaned_data['address'],
             zipcode=self.cleaned_data['zipcode'],
-            role=1,  # Set appropriate default values or handle them as needed
-            type=1   # Set appropriate default values or handle them as needed
+            profile_picture=self.cleaned_data.get('profile_picture'),
+            role=1,
+            type=1
         )
+
+        if commit:
+            user.save()
+
         # user.set_password(self.cleaned_data['password'])  # Use set_password to hash
-        user.save()  # This will call the save method in the User model
+        user.save()
         return user
 
 class SpecialistSignUp(forms.Form):
@@ -54,6 +59,7 @@ class SpecialistSignUp(forms.Form):
     confirm_password = forms.CharField(widget=forms.PasswordInput, required=True)
     address = forms.CharField(max_length=45, required=True)
     zipcode = forms.CharField(max_length=15, required=True)
+    profile_picture = forms.ImageField(required=False)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -75,10 +81,12 @@ class SpecialistSignUp(forms.Form):
             phone_no=self.cleaned_data['phone_number'],  # Ensure this matches your model
             address=self.cleaned_data['address'],
             zipcode=self.cleaned_data['zipcode'],
-            role=1,  # Set appropriate default values or handle them as needed
-            type=1   # Set appropriate default values or handle them as needed
+            profile_picture=self.cleaned_data.get('profile_picture'),
+            role=1,
+            type=1
+
         )
         # user.set_password(self.cleaned_data['password'])  # Use set_password to hash
-        user.save()  # This will call the save method in the User model
+        user.save()
         return user
 
