@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="icon" href="images/Kooli.ico">
+    <link rel="icon" href="{% static 'images/SkillBridge.ico' %}">
 
     <title>Signup | SkillBridge</title>
 
@@ -154,7 +154,7 @@
                     <br>
 
                     <label for="gender">Gender:</label>
-                    <select class="input-box" id="gender" required>
+                    <select class="input-box" name="gender" id="gender" required>
                         <option value="" disabled selected>Select your gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -164,7 +164,7 @@
                     <br>
 
                     <label for="experience">Experience Level:</label>
-                    <select class="input-box" id="experience" required>
+                    <select class="input-box" name="experience" id="experience" required>
                         <option value="" disabled selected>Select your experience level</option>
                         <option value="entry">Entry Level</option>
                         <option value="mid">Mid Level</option>
@@ -186,12 +186,12 @@
                     <br>
 
                     <label for="resume">Upload Resume:</label>
-                    <input type="file" accept=".pdf,.doc,.docx" class="input-box">
+                    <input type="file" name="resume" accept=".pdf,.doc,.docx" class="input-box">
 
                     <br>
 
                     <label for="skill-category">Skill Category:</label>
-                    <select class="input-box" id="skill-category" required>
+                    <select class="input-box" name="skill_category" id="skill-category" required>
                         <option value="" disabled selected>Select your skill</option>
                         <option value="plumber">Plumber</option>
                         <option value="driver">Driver</option>
@@ -203,7 +203,7 @@
                     <br>
 
                     <label for="qualification">Qualification:</label>
-                    <select class="input-box" id="qualification" required>
+                    <select class="input-box" name="qualification" id="qualification" required>
                         <option value="" disabled selected>Select your qualification</option>
                         <option value="ssc">SSC</option>
                         <option value="hsc">HSC</option>
@@ -214,7 +214,7 @@
                     <br>
 
                     <label for="availability">Availability:</label>
-                    <select class="input-box" id="availability" required>
+                    <select class="input-box" name="availability" id="availability" required>
                         <option value="" disabled selected>Select your availability</option>
                         <option value="immediate">Immediate</option>
                         <option value="1week">In 1 Week</option>
@@ -225,7 +225,7 @@
                     <br>
 
                     <label for="relocate">Willing to Relocate:</label>
-                    <input type="checkbox" id="relocate" class="option-checkbox">
+                    <input type="checkbox" name="willing_to_relocate" id="relocate" class="option-checkbox">
                     <label for="relocate" class="option-label"> Yes </label>
 
                     <br>
