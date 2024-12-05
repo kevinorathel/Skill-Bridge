@@ -89,6 +89,10 @@
         </div>
     </div>
 
+    <button class="signout-btn" onclick="window.location.href='{% url 'logout' %}'">
+        <i class="fas fa-sign-out-alt"></i> Sign Out
+    </button>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script>
         document.getElementById("postForm").addEventListener("submit", function (event) {
