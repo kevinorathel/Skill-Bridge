@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.contrib.auth.views import LogoutView
 from . import views
 
 urlpatterns = [
@@ -14,7 +14,7 @@ urlpatterns = [
     path('my-profile/<str:username>/', views.my_profile, name='my_profile'),
     path('home/', views.landingpage, name='landingpage'),
     path('create_post/', views.create_post, name='create_post'),
-
+    path('', LogoutView.as_view(next_page='index'), name='logout'),
 ]
 
 if settings.DEBUG:
