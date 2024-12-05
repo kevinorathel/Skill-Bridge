@@ -5,8 +5,11 @@ from .forms import SpecialistSignUp
 from django.contrib import messages
 from django.contrib.auth import login
 from .forms import LoginForm
-from .models import User
+from .models import *
+from django.http import JsonResponse
+import logging
 
+logger = logging.getLogger('SkillBridge')
 
 def index(request):
     return render(request, 'Application/index.html')
@@ -53,6 +56,19 @@ def landingpage(request):
     except User.DoesNotExist:
         return redirect('login')
 
+    posts = Post.objects.all().order_by('-created_at')
+
+    posts_data = [
+        {
+            'content': post.content,
+            'user': post.user,
+            'username': post.user.username,
+            'profile_picture': post.user.profile_picture,
+            'image': post.image,
+        }
+        for post in posts
+    ]
+
     user_data = {
         'username': user.username,
         'firstName': user.first_name,
@@ -62,7 +78,8 @@ def landingpage(request):
 
     return render(request, 'Application/landing-page.html', {
         'user_data': user_data,
-        'MEDIA_URL': settings.MEDIA_URL
+        'MEDIA_URL': settings.MEDIA_URL,
+        'posts': posts_data
     })
 
 
@@ -108,8 +125,7 @@ def forgot_password(request):
             messages.error(request, 'User not found')
         return redirect('login')  # Redirect back to the login page
 
-def my_profile(request):
-    username = request.session.get('username')
+def my_profile(request, username):
 
     try:
         user = User.objects.get(username=username)
@@ -161,3 +177,32 @@ def my_profile(request):
             'user': user_data,
             'MEDIA_URL': settings.MEDIA_URL
         })
+
+def create_post(request):
+    if request.method == "POST":
+        content = request.POST.get("content")
+        image = request.FILES.get("image")
+        user_name = request.POST.get("user_name")
+        user = User.objects.get(username=user_name)
+
+        if not content:
+            return JsonResponse({"success": False, "error": "Content is required."})
+
+        try:
+            # Ensure you're saving the Post with your custom User model instance
+            new_post = Post.objects.create(content=content, user=user)  # Using custom User model
+            if image:
+                new_post.image.save(image.name, image)
+            new_post.save()
+
+            return JsonResponse({
+                "success": True,
+                "content": new_post.content,
+                "image_url": new_post.image.url if new_post.image else None,
+            })
+        except Exception as e:
+            logger.error(user.username)
+            # print(user.username)
+            return JsonResponse({"success": False, "error": str(e)})
+
+    return JsonResponse({"success": False, "error": "Invalid request method."})

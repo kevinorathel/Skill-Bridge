@@ -35,7 +35,7 @@
     <div class="container">
         <div class="user-container">
             <div class="users">
-                <a href="{% url 'my_profile' %}">
+                <a href="{% url 'my_profile' username=user_data.username %}">
                     <div class="user">
                         {% if user_data.profile_picture_url %}
                         <img src="{{ MEDIA_URL }}{{ user_data.profile_picture_url }}" alt="Profile Picture">
@@ -51,11 +51,11 @@
         <div class="divider"></div>
 
         <div class="msg-container">
-            <div class = "post-container">
+            <div class="post-container">
                 <form id="postForm">
+                    <input type="hidden" name="user_name" value="{{ user_data.username }}">
                     <div class="mb-3">
-                        <textarea class="form-control" id="post-content" name="content" rows="3"
-                            placeholder="Need something done?" required></textarea>
+                        <textarea class="form-control" id="post-content" name="content" rows="3" placeholder="Need something done?" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="post-image" class="form-label">Add an image</label>
@@ -65,51 +65,88 @@
                 </form>
             </div>
 
-            <div id="msgs"></div>
+            <!-- Loop through the posts and display them -->
+            <div id="msgs">
+                {% for post in posts %}
+                <div class="post" data-username="{{ post.username }}">
+                    <div class="post-header">
+                        {% if post.user.profile_picture %}
+                        <img src="{{ MEDIA_URL }}{{ post.user.profile_picture }}" alt="Profile Picture">
+                        {% else %}
+                        <img src="{% static 'images/generic-pfp.jpg' %}" alt="Default Profile Picture">
+                        {% endif %}
+                        <a href="{% url 'my_profile' username=post.username %}">
+                            <h2>{{ post.user.first_name }} {{ post.user.last_name }}</h2>
+                        </a>
+                    </div>
+                    <p>{{ post.content }}</p>
+                    {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="Post Image" class="post-image">
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script>
-        document.getElementById("postForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+        document.getElementById("postForm").addEventListener("submit", function (event) {
+        event.preventDefault();
 
-            const content = document.getElementById("post-content").value;
-            const image = document.getElementById("post-image").files[0];
-            const postContainer = document.getElementById("msgs");
+        const formData = new FormData(this); // Collect form data including the file
+        const postContainer = document.getElementById("msgs");
 
-            const postContent = document.createElement("div");
-            postContent.innerHTML = `
-                <div class="post">
-                    <div class="post-header">
-                        {% if user_data.profile_picture_url %}
-                        <img src="{{ MEDIA_URL }}{{ user_data.profile_picture_url }}" alt="Profile Picture">
-                        {% else %}
-                        <img src="{% static 'images/generic-pfp.jpg' %}" alt="Default Profile Picture">
-                        {% endif %}
-                        <a href="{% url 'my_profile' %}">
-                            <h2>{{ user_data.firstName }} {{ user_data.lastName }}</h2>
-                        </a>
-                    </div>
-                    <p>${content}</p>
-                </div>
-            `;
-
-            if (image) {
-                const imgElement = document.createElement("img");
-                imgElement.src = URL.createObjectURL(image);
-                imgElement.classList.add("post-image");
-
-                // Append image inside the post div
-                postContent.querySelector(".post").appendChild(imgElement);
+        fetch("{% url 'create_post' %}", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}" // Pass the CSRF token
             }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Create and append the new post element
+                    const postContent = document.createElement("div");
+                    postContent.classList.add("post");
 
-            postContainer.prepend(postContent);
+                    const username = data.username; // Ensure this is returned in your server response
+
+                    postContent.innerHTML = `
+                        <div class="post-header">
+                            {% if user_data.profile_picture_url %}
+                            <img src="{{ MEDIA_URL }}{{ user_data.profile_picture_url }}" alt="Profile Picture">
+                            {% else %}
+                            <img src="{% static 'images/generic-pfp.jpg' %}" alt="Default Profile Picture">
+                            {% endif %}
+                            <a href="/my-profile/${username}/">
+                                <h2>{{ user_data.firstName }} {{ user_data.lastName }}</h2>
+                            </a>
+                        </div>
+                        <p>${data.content}</p>
+                    `;
+
+                    if (data.image_url) {
+                        const imgElement = document.createElement("img");
+                        imgElement.src = data.image_url;
+                        imgElement.classList.add("post-image");
+                        postContent.appendChild(imgElement);
+                    }
+
+                    postContainer.prepend(postContent);
+                    document.getElementById("postForm").reset();
+                } else {
+                    alert("Error saving post.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while saving the post.");
+            });
+    });
 
 
-
-            document.getElementById("postForm").reset();
-        });
     </script>
 
 </body>
