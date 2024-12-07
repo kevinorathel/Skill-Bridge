@@ -56,15 +56,17 @@ def landingpage(request):
     except User.DoesNotExist:
         return redirect('login')
 
+    # Fetch posts, ensuring post.id is passed to the template
     posts = Post.objects.all().order_by('-created_at')
 
     posts_data = [
         {
+            'id': post.id,  # Include the post ID explicitly
             'content': post.content,
             'user': post.user,
             'username': post.user.username,
-            'profile_picture': post.user.profile_picture,
-            'image': post.image,
+            'profile_picture': post.user.profile_picture.url if post.user.profile_picture else None,
+            'image': post.image.url if post.image else None,
         }
         for post in posts
     ]
@@ -73,15 +75,14 @@ def landingpage(request):
         'username': user.username,
         'firstName': user.first_name,
         'lastName': user.last_name,
-        'profile_picture_url': user.profile_picture,
+        'profile_picture_url': user.profile_picture.url if user.profile_picture else None,
     }
 
     return render(request, 'Application/landing-page.html', {
         'user_data': user_data,
         'MEDIA_URL': settings.MEDIA_URL,
-        'posts': posts_data
+        'posts': posts_data  # Pass the processed posts data to the template
     })
-
 
 
 def login(request):
@@ -132,7 +133,7 @@ def my_profile(request, username):
     except User.DoesNotExist:
         return redirect('login')
 
-    if(user.type == 1):
+    if user.type == 1:
 
         user_data = {
             'username': user.username,
@@ -151,7 +152,7 @@ def my_profile(request, username):
             'MEDIA_URL': settings.MEDIA_URL
         })
 
-    elif(user.type == 2):
+    elif user.type == 2:
 
         user_data = {
             'username': user.username,
@@ -206,3 +207,48 @@ def create_post(request):
             return JsonResponse({"success": False, "error": str(e)})
 
     return JsonResponse({"success": False, "error": "Invalid request method."})
+
+
+# Create Bid View (For Specialists)
+def place_bid(request, post_id):
+    if request.method == 'POST':
+        pay = request.POST.get('pay')
+        timeline = request.POST.get('timeline')
+        approach = request.POST.get('approach')
+
+        try:
+            post = Post.objects.get(id=post_id)
+            specialist = User.objects.get(username=request.session.get('username'))
+
+            # Check if specialist is trying to bid on their own post
+            if post.user == specialist:
+                return JsonResponse({"success": False, "error": "You cannot place a bid on your own post."})
+
+            bid = Bid.objects.create(
+                post=post,
+                specialist=specialist,
+                pay=pay,
+                timeline=timeline,
+                approach=approach
+            )
+            return JsonResponse({"success": True, "message": "Bid placed successfully!"})
+        except Post.DoesNotExist:
+            return JsonResponse({"success": False, "error": "Post not found."})
+    return JsonResponse({"success": False, "error": "Invalid request."})
+
+
+# View Bids (For Clients)
+def view_bids(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        messages.error(request, "Post not found.")
+        return redirect('landingpage')  # Or redirect to another page
+
+    # Get all bids for the post
+    bids = Bid.objects.filter(post=post)
+
+    return render(request, 'Application/view-bids.html', {
+        'post': post,
+        'bids': bids,
+    })

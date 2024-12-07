@@ -14,6 +14,8 @@ urlpatterns = [
     path('my-profile/<str:username>/', views.my_profile, name='my_profile'),
     path('home/', views.landingpage, name='landingpage'),
     path('create_post/', views.create_post, name='create_post'),
+    path('place_bid/<int:post_id>/', views.place_bid, name='place_bid'),  # For placing bids
+    path('view_bids/<int:post_id>/', views.view_bids, name='view_bids'),  # For viewing bids
     path('', LogoutView.as_view(next_page='index'), name='logout'),
 ]
 
