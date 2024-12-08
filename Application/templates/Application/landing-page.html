@@ -28,10 +28,11 @@
     <link rel="icon" href="{% static 'images/SkillBridge.ico' %}">
 
     <style>
-        .signout-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
+        .signout-btn,
+        .btn-primary,
+        .place-bid-btn,
+        .view-bids-btn,
+        .close-btn {
             background-color: #007bff;
             color: white;
             border: none;
@@ -46,64 +47,56 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .signout-btn i {
+        .signout-btn i,
+        .place-bid-btn i,
+        .view-bids-btn i {
             font-size: 20px;
         }
 
-        .signout-btn:hover {
+        .signout-btn:hover,
+        .btn-primary:hover,
+        .place-bid-btn:hover,
+        .view-bids-btn:hover,
+        .close-btn:hover {
             background-color: #0056b3;
         }
 
-        .view-bids-btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 14px;
-            cursor: pointer;
-            background-color: #ffc107;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: background-color 0.3s;
-        }
-
-        .view-bids-btn:hover {
-            background-color: #e0a800;
-        }
-
-        .post-image {
+        /* Style for the bid popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-height: 300px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-top: 15px;
-        }
-
-        .post-header {
-            display: flex;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
             align-items: center;
-            gap: 15px;
         }
 
-        .post-header img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
-
-        .post {
-            border: 1px solid #ddd;
-            border-radius: 10px;
+        .popup-content {
+            background-color: white;
             padding: 20px;
+            border-radius: 5px;
+            width: 400px;
+        }
+
+        .popup-content h4 {
             margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
+        }
+
+        .popup-content label {
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
         }
     </style>
 </head>
 
 <body>
-
     <div class="title-bar-user"></div>
 
     <div class="container">
@@ -129,8 +122,7 @@
                 <form id="postForm">
                     <input type="hidden" name="user_name" value="{{ user_data.username }}">
                     <div class="mb-3">
-                        <textarea class="form-control" id="post-content" name="content" rows="3"
-                            placeholder="Need something done?" required></textarea>
+                        <textarea class="form-control" id="post-content" name="content" rows="3" placeholder="Need something done?" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="post-image" class="form-label">Add an image</label>
@@ -158,9 +150,14 @@
                     <img src="{{ post.image.url }}" alt="Post Image" class="post-image">
                     {% endif %}
 
+                    {% if user_data.username != post.user.username %}
+                        <!-- Only show for specialist users to place bid -->
+                        <button class="place-bid-btn" onclick="showBidPopup({{ post.id }})">Place a Bid</button>
+                    {% endif %}
+
                     {% if user_data.username == post.user.username %}
-                    <button class="view-bids-btn"
-                        onclick="window.location.href='{% url 'view_bids' post.id %}'">View Bids</button>
+                        <!-- Only show for client users to view bids -->
+                        <button class="view-bids-btn" onclick="window.location.href='{% url 'view_bids' post.id %}'">View Bids</button>
                     {% endif %}
                 </div>
                 {% endfor %}
@@ -172,5 +169,60 @@
         <i class="fas fa-sign-out-alt"></i> Sign Out
     </button>
 
+    <!-- Bid Popup -->
+    <div id="bid-popup" class="popup">
+        <div class="popup-content">
+            <h4>Place Your Bid</h4>
+            <form id="bid-form">
+                <label for="pay">Pay</label>
+                <input type="text" id="pay" name="pay" class="form-control" required>
+
+                <label for="timeline">Timeline</label>
+                <input type="text" id="timeline" name="timeline" class="form-control" required>
+
+                <label for="approach">Approach</label>
+                <textarea id="approach" name="approach" class="form-control" required></textarea>
+
+                <div class="action-buttons mt-3">
+                    <button type="submit" class="btn btn-primary">Submit Bid</button>
+                    <button type="button" class="close-btn" onclick="closeBidPopup()">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        function showBidPopup(postId) {
+            document.getElementById("bid-popup").style.display = "flex";
+            document.getElementById("bid-form").onsubmit = function (event) {
+                event.preventDefault();
+                const bidData = new FormData(event.target);
+                fetch(`/place_bid/${postId}/`, {
+                    method: "POST",
+                    body: bidData,
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Bid placed successfully!");
+                        closeBidPopup();
+                    } else {
+                        alert("Failed to place bid.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+            };
+        }
+
+        function closeBidPopup() {
+            document.getElementById("bid-popup").style.display = "none";
+        }
+    </script>
 </body>
 </html>
