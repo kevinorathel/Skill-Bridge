@@ -193,6 +193,56 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script>
+        document.getElementById("postForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const formData = new FormData(this); // Collect form data including the file
+        const postContainer = document.getElementById("msgs");
+        fetch("{% url 'create_post' %}", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}" // Pass the CSRF token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Create and append the new post element
+                    const postContent = document.createElement("div");
+                    postContent.classList.add("post");
+                    const username = data.username; // Ensure this is returned in your server response
+                    postContent.innerHTML = `
+                        <div class="post-header">
+                            {% if user_data.profile_picture_url %}
+                            <img src="{{ MEDIA_URL }}{{ user_data.profile_picture_url }}" alt="Profile Picture">
+                            {% else %}
+                            <img src="{% static 'images/generic-pfp.jpg' %}" alt="Default Profile Picture">
+                            {% endif %}
+                            <a href="/my-profile/${username}/">
+                                <h2>{{ user_data.firstName }} {{ user_data.lastName }}</h2>
+                            </a>
+                        </div>
+                        <p>${data.content}</p>
+                    `;
+                    if (data.image_url) {
+                        const imgElement = document.createElement("img");
+                        imgElement.src = data.image_url;
+                        imgElement.classList.add("post-image");
+                        postContent.appendChild(imgElement);
+                    }
+                    postContainer.prepend(postContent);
+                    document.getElementById("postForm").reset();
+                } else {
+                    alert("Error saving post.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while saving the post.");
+            });
+    });
+    </script>
+    <script>
         function showBidPopup(postId) {
             document.getElementById("bid-popup").style.display = "flex";
             document.getElementById("bid-form").onsubmit = function (event) {
